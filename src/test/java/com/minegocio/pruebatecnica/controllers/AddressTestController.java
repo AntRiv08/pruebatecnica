@@ -33,9 +33,6 @@ public class AddressTestController {
     @MockBean
     private IAddressService addressService;
 
-    @MockBean
-    private IClientService clientService;
-
     @Autowired
     private ObjectMapper objectMapper;
 
