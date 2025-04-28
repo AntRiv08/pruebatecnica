@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -135,6 +134,35 @@ public class AddressTestController {
                 .andExpect(MockMvcResultMatchers.content().string("Registro Actualizado"));
 
         Mockito.verify(addressService).updateAddress(Mockito.any(Address.class));
+    }
+
+    @DisplayName("Save client test")
+    @Test
+    void testSaveAddress() throws Exception {
+        AddressDTO addressDTO = AddressDTO.builder()
+                .province("Pichincha")
+                .city("Quito")
+                .address("Av. Naciones Unidas")
+                .client(null) // no es necesario enviar un cliente es opcional
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/address/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addressDTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.header().string("Location", "api/address/save"));
+        Mockito.verify(addressService).save(Mockito.any(Address.class));
+    }
+
+    @DisplayName("Test delete Address")
+    @Test
+    void testDeleteAddress() throws Exception {
+        Long id = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/address/delete/{id}", id))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Registro Eliminado"));
+
+        Mockito.verify(addressService).delete(id);
     }
     
 }
