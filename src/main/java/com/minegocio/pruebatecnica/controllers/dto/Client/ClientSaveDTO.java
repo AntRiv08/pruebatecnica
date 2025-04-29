@@ -1,5 +1,8 @@
 package com.minegocio.pruebatecnica.controllers.dto.Client;
 
+import com.minegocio.pruebatecnica.validators.OnlyNumbers;
+import com.minegocio.pruebatecnica.validators.ValidIdentification;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -18,7 +21,7 @@ public class ClientSaveDTO {
     private String identificationType;
 
     @NotBlank(message = "El campo es obligatorio")
-    @Pattern(regexp = "^\\d{10}$", message = "La cédula debe tener exactamente 10 dígitos numéricos")
+    @ValidIdentification()
     private String identificationNumber;
 
     @NotBlank(message = "El campo es obligatorio")
@@ -30,6 +33,7 @@ public class ClientSaveDTO {
     private String email;
 
     @NotBlank(message = "El celular es obligatorio")
+    @Pattern(regexp = "^[0-9]+$", message = "Solo se permiten números")
     @Pattern(regexp = "^(09\\d{8})$", message = "El número de celular debe empezar con 09 y tener 10 dígitos")
     private String cellphone;
 }

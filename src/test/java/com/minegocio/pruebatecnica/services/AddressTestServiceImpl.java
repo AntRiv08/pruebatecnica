@@ -88,8 +88,6 @@ public class AddressTestServiceImpl {
     @Test
     @DisplayName("Save address Test")
     void testSaveClient() {
-        given(addressDAO.findById(address.getId()))
-                .willReturn(Optional.empty());
         given(addressDAO.save(address)).willReturn(address);
 
         Address saveAddress = addressService.save(address);

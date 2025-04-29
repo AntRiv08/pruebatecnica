@@ -1,9 +1,15 @@
 package com.minegocio.pruebatecnica.controllers;
 
 import com.minegocio.pruebatecnica.controllers.dto.Address.AddressDTO;
+import com.minegocio.pruebatecnica.controllers.dto.Address.AddressSaveDTO;
+import com.minegocio.pruebatecnica.controllers.dto.Address.AddressUpdateDTO;
 import com.minegocio.pruebatecnica.entities.Address;
+import com.minegocio.pruebatecnica.entities.Client;
 import com.minegocio.pruebatecnica.services.IAddressService;
+import com.minegocio.pruebatecnica.services.IClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +32,9 @@ public class AddressController {
 
     @Autowired
     private IAddressService addressService;
+
+    @Autowired
+    private IClientService clientService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<AddressDTO>> findAll() {
@@ -59,14 +69,14 @@ public class AddressController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody AddressDTO addressDTO){
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody AddressUpdateDTO addressDTO) {
         Optional<Address> existingAddress = addressService.findById(id);
-        if(existingAddress.isPresent()){
+        if (existingAddress.isPresent()) {
             Address addressdb = existingAddress.get();
             addressdb.setProvince(addressDTO.getProvince());
             addressdb.setCity(addressDTO.getCity());
             addressdb.setAddress(addressDTO.getAddress());
-            addressdb.setClient(addressDTO.getClient());
+            addressdb.setClient(addressdb.getClient());
             addressService.updateAddress(addressdb);
             return ResponseEntity.ok("Registro Actualizado");
         }
@@ -74,19 +84,22 @@ public class AddressController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<AddressDTO> save(@RequestBody AddressDTO addressdto) throws URISyntaxException {
+    public ResponseEntity<AddressDTO> save(@Valid @RequestBody AddressSaveDTO addressdto) throws URISyntaxException {
+        Client client = clientService.findById(addressdto.getClientId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
         addressService.save(Address.builder()
                 .province(addressdto.getProvince())
                 .city(addressdto.getCity())
                 .address(addressdto.getAddress())
-                .client(addressdto.getClient())
+                .client(client)
                 .build());
         return ResponseEntity.created(new URI("api/address/save")).build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
-        if(id == null){
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        if (id == null) {
             return ResponseEntity.badRequest().build();
         }
         addressService.delete(id);

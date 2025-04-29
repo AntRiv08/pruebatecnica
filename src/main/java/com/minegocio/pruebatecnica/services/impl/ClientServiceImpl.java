@@ -33,15 +33,11 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public Client updateClient(Client client) {
-        return clientDAO.save(client);
+        return clientDAO.updateClient(client);
     }
 
     @Override
     public Client save(Client client) {
-        Optional<Client> saveClient = clientDAO.findById(client.getId());
-        if(saveClient.isPresent()){
-            throw new ResourceNotFoundException("El cliente ya esta registrado");
-        }
         return clientDAO.save(client);
     }
 

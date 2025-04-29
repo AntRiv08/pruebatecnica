@@ -82,9 +82,9 @@ public class ClientTestServiceImpl {
     @Test
     @DisplayName("Update client test")
     void testUpdateClient() {
-        given(clientDAO.save(client)).willReturn(client);
+        given(clientDAO.updateClient(client)).willReturn(client);
         client.setIdentificationType("otras");
-        client.setIdentificationNumber("0987654321");
+        client.setIdentificationNumber("175061768");
         client.setFullName("Roberto Casas");
         client.setEmail("correo1@gmail.com");
         client.setCellphone("0987654321");
@@ -98,24 +98,10 @@ public class ClientTestServiceImpl {
     @Test
     @DisplayName("Save client Test")
     void testSaveClient() {
-        given(clientDAO.findById(client.getId()))
-                .willReturn(Optional.empty());
         given(clientDAO.save(client)).willReturn(client);
 
         Client saveClient = clientService.save(client);
         assertThat(saveClient).isNotNull();
-    }
-
-    @Test
-    @DisplayName("Save client with throw Execption")
-    void testSaveClientExcep() {
-        given(clientDAO.findById(client.getId()))
-                .willReturn(Optional.of(client));
-
-        assertThrows(ResourceNotFoundException.class, () -> {
-            clientService.save(client);
-        });
-        verify(clientDAO, never()).save(any(Client.class));
     }
 
     @Test

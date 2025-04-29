@@ -35,6 +35,5 @@ El propósito de este proyecto es dar a conocer mis capacidades como desarrollad
 > ## 📃 Documentación
 > 1. (Opcional) Puedes ver una documentacion hecha con swagger en la siguiente dirección local después de correr el proyecto:
      👉 http://localhost:8080/swagger-ui/index.html
-> 2. Puedes ver la documentación para postman dentro de este proyecto con el nombre de:
-> 3. 👉 Mi negocio postman.
+> 2. Puedes ver la documentación para postman dentro del siguiente link: https://documenter.getpostman.com/view/20957288/2sB2j1jD32"
   

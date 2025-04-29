@@ -1,6 +1,7 @@
 package com.minegocio.pruebatecnica.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minegocio.pruebatecnica.controllers.dto.Address.AddressDTO;
+import com.minegocio.pruebatecnica.controllers.dto.Address.AddressSaveDTO;
 import com.minegocio.pruebatecnica.entities.Address;
 import com.minegocio.pruebatecnica.entities.Client;
 import com.minegocio.pruebatecnica.services.IAddressService;
@@ -33,6 +34,9 @@ public class AddressTestController {
     @MockBean
     private IAddressService addressService;
 
+    @MockBean
+    private IClientService clientService;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -47,7 +51,7 @@ public class AddressTestController {
         address1.setId(1L);
         address1.setProvince("Pichincha");
         address1.setCity("Quito");
-        address1.setAddress("Av Amazonas");
+        address1.setAddress("Av. Amazonas N34-120");
         address1.setClient(client);
 
         when(addressService.findAddress()).thenReturn(List.of(address1));
@@ -57,7 +61,7 @@ public class AddressTestController {
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].province").value("Pichincha"))
                 .andExpect(jsonPath("$[0].city").value("Quito"))
-                .andExpect(jsonPath("$[0].address").value("Av Amazonas"));
+                .andExpect(jsonPath("$[0].address").value("Av. Amazonas N34-120"));
 
         verify(addressService, times(1)).findAddress();
     }
@@ -136,12 +140,16 @@ public class AddressTestController {
     @DisplayName("Save client test")
     @Test
     void testSaveAddress() throws Exception {
-        AddressDTO addressDTO = AddressDTO.builder()
+        AddressSaveDTO addressDTO = AddressSaveDTO.builder()
                 .province("Pichincha")
                 .city("Quito")
                 .address("Av. Naciones Unidas")
-                .client(null) // no es necesario enviar un cliente es opcional
+                .clientId(1L)
                 .build();
+
+        Client client = new Client();
+        client.setId(1L);
+        Mockito.when(clientService.findById(1L)).thenReturn(Optional.of(client));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/address/save")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 public class ClientListsDTO {
     private Long id;
+
     @NotBlank(message = "El campo es obligatorio")
     private String identificationType;
 

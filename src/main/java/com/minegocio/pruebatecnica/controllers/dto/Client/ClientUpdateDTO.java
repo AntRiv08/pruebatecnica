@@ -1,5 +1,6 @@
 package com.minegocio.pruebatecnica.controllers.dto.Client;
 
+import com.minegocio.pruebatecnica.validators.ValidIdentification;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -19,6 +20,7 @@ public class ClientUpdateDTO {
     private String identificationType;
 
     @NotBlank(message = "El campo es obligatorio")
+    @ValidIdentification
     @Pattern(regexp = "^\\d{10}$", message = "La cédula debe tener exactamente 10 dígitos numéricos")
     private String identificationNumber;
 

@@ -33,10 +33,6 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public Address save(Address address) {
-        Optional<Address> saveAddress = addressDAO.findById(address.getId());
-        if(saveAddress.isPresent()){
-            throw new ResourceNotFoundException("Dirreccion ya registrada");
-        }
         return addressDAO.save(address);
     }
 

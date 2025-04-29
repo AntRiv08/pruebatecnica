@@ -1,6 +1,7 @@
 package com.minegocio.pruebatecnica.persistence.impl;
 
 import com.minegocio.pruebatecnica.entities.Client;
+import com.minegocio.pruebatecnica.exception.ResourceNotFoundException;
 import com.minegocio.pruebatecnica.persistence.IClientDAO;
 import com.minegocio.pruebatecnica.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class ClientDAOImpl implements IClientDAO {
 
     @Override
     public Client save(Client client) {
+        Optional<Client> saveClient = Optional.ofNullable(clientRepository.findByEmail(client.getEmail()));
+        if (saveClient.isPresent()){
+            throw new ResourceNotFoundException("El correo ya fue registrado");
+        }
         return clientRepository.save(client);
     }
 

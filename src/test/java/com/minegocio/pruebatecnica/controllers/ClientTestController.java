@@ -46,9 +46,9 @@ public class ClientTestController {
     void testSaveClient() throws Exception {
         ClientSaveDTO clientSaveDTO = ClientSaveDTO.builder()
                 .identificationType("CEDULA")
-                .identificationNumber("1234567890")
+                .identificationNumber("1710034065")
                 .fullName("Antonio Rivera")
-                .email("prueba@prueba.com")
+                .email("prueba1@prueba.com")
                 .cellphone("0912345678")
                 .build();
 
@@ -78,7 +78,7 @@ public class ClientTestController {
         Client client = new Client();
         client.setId(1L);
         client.setIdentificationType("CEDULA");
-        client.setIdentificationNumber("1234567890");
+        client.setIdentificationNumber("1710034065");
         client.setFullName("Antonio Rivera");
         client.setEmail("prueba@prueba.com");
         client.setCellphone("0912345678");
@@ -91,7 +91,7 @@ public class ClientTestController {
                 .andExpect(jsonPath("$.size()", is(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].identificationType", is("CEDULA")))
-                .andExpect(jsonPath("$[0].identificationNumber", is("1234567890")))
+                .andExpect(jsonPath("$[0].identificationNumber", is("1710034065")))
                 .andExpect(jsonPath("$[0].fullName", is("Antonio Rivera")))
                 .andExpect(jsonPath("$[0].email", is("prueba@prueba.com")))
                 .andExpect(jsonPath("$[0].cellphone", is("0912345678")));
@@ -114,7 +114,7 @@ public class ClientTestController {
         Client client = new Client();
         client.setId(id);
         client.setIdentificationType("CEDULA");
-        client.setIdentificationNumber("1234567890");
+        client.setIdentificationNumber("1710034065");
         client.setFullName("Antonio Rivera");
         client.setEmail("prueba@prueba.com");
         client.setCellphone("0912345678");
@@ -126,7 +126,7 @@ public class ClientTestController {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.identificationType", is("CEDULA")))
-                .andExpect(jsonPath("$.identificationNumber", is("1234567890")))
+                .andExpect(jsonPath("$.identificationNumber", is("1710034065")))
                 .andExpect(jsonPath("$.fullName", is("Antonio Rivera")))
                 .andExpect(jsonPath("$.email", is("prueba@prueba.com")))
                 .andExpect(jsonPath("$.cellphone", is("0912345678")));
@@ -175,7 +175,7 @@ public class ClientTestController {
 
         ClientUpdateDTO updateDTO = new ClientUpdateDTO();
         updateDTO.setIdentificationType("CEDULA");
-        updateDTO.setIdentificationNumber("1234567890");
+        updateDTO.setIdentificationNumber("1710034065");
         updateDTO.setFullName("Antonio Rivera Actualizado");
         updateDTO.setEmail("actualizado@correo.com");
         updateDTO.setCellphone("0912345678");
@@ -197,7 +197,7 @@ public class ClientTestController {
         Long id = 99L;
         ClientUpdateDTO updateDTO = new ClientUpdateDTO();
         updateDTO.setIdentificationType("CEDULA");
-        updateDTO.setIdentificationNumber("1234567890");
+        updateDTO.setIdentificationNumber("1710034065");
         updateDTO.setFullName("Nombre");
         updateDTO.setEmail("correo@prueba.com");
         updateDTO.setCellphone("0912345678");
