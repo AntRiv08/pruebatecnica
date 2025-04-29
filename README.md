@@ -36,4 +36,12 @@ El propósito de este proyecto es dar a conocer mis capacidades como desarrollad
 > 1. (Opcional) Puedes ver una documentacion hecha con swagger en la siguiente dirección local después de correr el proyecto:
      👉 http://localhost:8080/swagger-ui/index.html
 > 2. Puedes ver la documentación para postman dentro del siguiente link: https://documenter.getpostman.com/view/20957288/2sB2j1jD32"
-  
+
+> [!NOTE]
+>## 📬 Contacto
+>¡Si quieres ponerte en contacto conmigo, aquí te dejo mis enlaces!
+>- 📱 [WhatsApp](https://wa.me/593962292245)
+>- 📧 [Gmail](mailto:antonio.rivera.developer@gmail.com)
+>- 💼 [LinkedIn](https://www.linkedin.com/in/antonio-rivera-ibarra/)
+>- ✉️ [Outlook](mailto:antonioo.rivera24@hotmail.com)
+>- 🖥️ [GitHub](https://github.com/AntRiv08)
